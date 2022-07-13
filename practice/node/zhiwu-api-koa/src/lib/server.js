@@ -5,7 +5,7 @@ import { setupRouter } from './setup-router'
 export { setupServer }
 
 const setupServer = async () => {
-	const { PORT } = env
+	const { PORT = 7777 } = env
 	const app = new Koa()
 
 	await setupRouter(app)
