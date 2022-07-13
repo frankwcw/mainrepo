@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node dist/main.js",
-    "build": "node build",
-    "serve": "node build && node dist/main.js"
+    "serve": "node dist/main.js",
+    "build": "rm -r dist && node build"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +18,8 @@
   },
   "devDependencies": {
     "@types/node": "18.0.3",
-    "esbuild": "0.14.49"
+    "esbuild": "0.14.49",
+    "minimist": "^1.2.6"
   },
   "dependencies": {
     "dotenv": "16.0.1"
