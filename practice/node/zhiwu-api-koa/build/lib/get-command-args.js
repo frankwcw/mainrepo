@@ -12,8 +12,7 @@ const getCommandArgs = defaultArgs => {
 		}
 	}
 
-	console.log('command args:')
-	console.log(args)
+	console.log('command args:', args)
 
 	return args
 }
