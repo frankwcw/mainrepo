@@ -4,9 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon",
+    "serve": "pnpm run build && pnpm run start",
+    "build": "node build",
+    "start": "node dist/main.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "peerDependencies": {
+    "nodemon": "2.0.19",
+    "prettier": "2.7.1",
+    "pnpm": "7.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "18.0.3",
+    "esbuild": "0.14.49"
+  },
+  "dependencies": {
+    "dotenv": "16.0.1"
+  }
 }
