@@ -1,8 +1,16 @@
 const fs = require('fs')
 const { recurFindMatchFiles } = require('./recur-find-match-files')
 
-const getRoutesDirs = async (routesDirPath = '', mapCallback) => {
-	const resultPaths = await recurFindMatchFiles(routesDirPath, '')
+const getRoutesDirs = async (
+	routesDirPath = '',
+	fileNameMatch = undefined,
+	mapCallback,
+) => {
+	const resultPaths = await recurFindMatchFiles(
+		routesDirPath,
+		'',
+		fileNameMatch,
+	)
 
 	if (resultPaths.length === 0) console.log('找不到路由目錄')
 

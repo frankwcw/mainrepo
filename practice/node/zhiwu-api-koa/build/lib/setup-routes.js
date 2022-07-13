@@ -1,10 +1,10 @@
 const path = require('path')
 const { getRoutesDirs } = require('./get-routes-dirs')
 
-const setupRoutesEntryPoints = async (entryPath = './src/routes') => {
+const setupRoutes = async (entryPath = './src/routes') => {
 	const routesDirPath = path.join(process.cwd(), entryPath)
 
-	return await getRoutesDirs(routesDirPath).then(filePaths => {
+	return await getRoutesDirs(routesDirPath, /^\/.+\.js$/).then(filePaths => {
 		const entryRoutes = [],
 			defineRoutes = []
 
@@ -21,4 +21,4 @@ const setupRoutesEntryPoints = async (entryPath = './src/routes') => {
 	})
 }
 
-module.exports = { setupRoutesEntryPoints }
+module.exports = { setupRoutes }

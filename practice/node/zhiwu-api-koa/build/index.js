@@ -1,12 +1,12 @@
 const { build } = require('esbuild')
 const { getCommandArgs } = require('./lib/get-command-args')
-const { setupRoutesEntryPoints } = require('./lib/setup-routes-entry-points')
+const { setupRoutes } = require('./lib/setup-routes')
 
 const { sourcemap } = getCommandArgs({
 	sourcemap: false,
 })
 
-setupRoutesEntryPoints().then(([entryRoutes, ESBUILD_DEFINE_ROUTES]) => {
+setupRoutes().then(([entryRoutes, ESBUILD_DEFINE_ROUTES]) => {
 	build({
 		entryPoints: ['./src/main.js', ...entryRoutes],
 		outdir: 'dist',
