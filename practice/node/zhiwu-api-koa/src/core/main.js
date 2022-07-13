@@ -1,6 +1,6 @@
-import dotenv from 'dotenv'
+import { initEnvConfig, env } from './lib/env'
 
-console.log(process.env.NODE_ENV)
-console.log(dotenv.config())
-
-console.log(456789)
+!(function setup() {
+	if (!initEnvConfig()) return
+	console.log(env)
+})()

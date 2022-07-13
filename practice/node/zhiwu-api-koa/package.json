@@ -7,15 +7,15 @@
     "dev": "nodemon",
     "start": "node dist/main.js",
     "build": "node build",
-    "serve": "pnpm run build && pnpm run start"
+    "serve": "node build && node dist/main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "peerDependencies": {
     "nodemon": "2.0.19",
-    "prettier": "2.7.1",
-    "pnpm": "7.5.1"
+    "pnpm": "7.5.1",
+    "prettier": "2.7.1"
   },
   "devDependencies": {
     "@types/node": "18.0.3",
