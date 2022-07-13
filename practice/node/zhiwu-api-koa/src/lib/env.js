@@ -1,10 +1,15 @@
 import dotenv from 'dotenv'
 
-export { initEnvConfig, env }
+export { setupEnv, env }
 
+/**
+ * @type {{
+ * 	PORT: number
+ * }}
+ */
 let env
 
-const initEnvConfig = () => {
+const setupEnv = () => {
 	const { error, parsed } = dotenv.config()
 
 	if (error) console.log('找不到 .env 檔')
