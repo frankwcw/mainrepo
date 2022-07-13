@@ -1,0 +1,7 @@
+### 首頁
+GET {{domain}}
+Accept: text/plain
+
+### 會員列表
+GET {{users-domain}}
+Accept: application/json
