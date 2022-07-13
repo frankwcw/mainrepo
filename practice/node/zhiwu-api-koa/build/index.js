@@ -1,9 +1,9 @@
 const { build } = require('esbuild')
 
 build({
-	entryPoints: ['./src/main.js'],
+	entryPoints: ['./src/core/main.js'],
 	outfile: './dist/main.js',
 	minify: true,
 	bundle: true,
-	platform: 'node'
+	platform: 'node',
 }).catch(() => process.exit(1))

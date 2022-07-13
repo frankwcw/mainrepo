@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "serve": "pnpm run build && pnpm run start",
+    "start": "node dist/main.js",
     "build": "node build",
-    "start": "node dist/main.js"
+    "serve": "pnpm run build && pnpm run start"
   },
   "keywords": [],
   "author": "",
