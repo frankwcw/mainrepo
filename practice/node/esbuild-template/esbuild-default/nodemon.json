@@ -2,6 +2,6 @@
   "watch": ["src"],
   "ignore": ["src/**/*.test.js", "node_modules"],
   "ext": "ts,mjs,js,json,graphql",
-  "exec": "pnpm run serve",
+  "exec": "node build --sourcemap && node dist/main.js",
   "legacyWatch": true
-}
+  }
