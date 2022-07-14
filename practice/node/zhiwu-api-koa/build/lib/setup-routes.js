@@ -9,17 +9,19 @@ const setupRoutes = async (entryPath = './src/routes') => {
 			defineRoutes = []
 
 		for (let i = 0; i < files.length; i++) {
-			const { name: fileName, ext: fileExt } = files[i]
-			const routeFileName = `route.${fileName}`
-			entryRoutes[`route.${fileName}`] = `${entryPath}/${fileName}.${fileExt}`
-			defineRoutes.push(`${routeFileName}.${fileExt}`)
+			const { path: filePath, ext: fileExt } = files[i]
+			const noEntryPathFilePath = filePath.replace(`${routesDirPath}/`, '')
+			const entryRouteName = noEntryPathFilePath
+				.split('/')
+				.join('.')
+				.replace(new RegExp(`\.${fileExt}$`), '')
+			entryRoutes[entryRouteName] = `${entryPath}/${noEntryPathFilePath}`
+			defineRoutes.push(`${entryRouteName}.${fileExt}`)
 		}
 
 		const ESBUILD_DEFINE_ROUTES = defineRoutes.length
 			? `"${defineRoutes.join(',')}"`
 			: undefined
-
-		console.log(entryRoutes, ESBUILD_DEFINE_ROUTES)
 
 		return [entryRoutes, ESBUILD_DEFINE_ROUTES]
 	})
