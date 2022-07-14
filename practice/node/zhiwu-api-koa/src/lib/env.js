@@ -3,8 +3,12 @@ import dotenv from 'dotenv'
 export { setupEnv, env }
 
 /**
+ * PORT? 預設 7777
  * @type {{
- * 	PORT: number
+ *   [
+ * 	   key in
+ * 	   'PORT'
+ *   ]: any
  * }}
  */
 let env
