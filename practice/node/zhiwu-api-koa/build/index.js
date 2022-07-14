@@ -8,7 +8,11 @@ const { sourcemap } = getCommandArgs({
 
 setupRoutes().then(([entryRoutes, ESBUILD_DEFINE_ROUTES]) => {
 	build({
-		entryPoints: ['./src/main.js', ...entryRoutes],
+		// entryPoints: ['./src/main.js', ...entryRoutes],
+		entryPoints: {
+			main: './src/main.js',
+			...entryRoutes,
+		},
 		outdir: 'dist',
 		minify: true,
 		bundle: true,

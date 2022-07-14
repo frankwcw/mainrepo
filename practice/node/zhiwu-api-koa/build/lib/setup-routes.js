@@ -4,20 +4,24 @@ const { getRoutesDirs } = require('./get-routes-dirs')
 const setupRoutes = async (entryPath = './src/routes') => {
 	const routesDirPath = path.join(process.cwd(), entryPath)
 
-	return await getRoutesDirs(routesDirPath, /^\/.+\.js$/).then(filePaths => {
-		const entryRoutes = [],
+	return await getRoutesDirs(routesDirPath, /^\/.+\.js$/).then(files => {
+		const entryRoutes = {},
 			defineRoutes = []
 
-		for (let i = 0; i < filePaths.length; i++) {
-			const [, suffixPath] = filePaths[i].split(routesDirPath)
-			entryRoutes.push(`${entryPath}${suffixPath}`)
-			defineRoutes.push(`./routes${suffixPath}`)
+		for (let i = 0; i < files.length; i++) {
+			const { name: fileName, ext: fileExt } = files[i]
+			const routeFileName = `route.${fileName}`
+			entryRoutes[`route.${fileName}`] = `${entryPath}/${fileName}.${fileExt}`
+			defineRoutes.push(`${routeFileName}.${fileExt}`)
 		}
 
-		return [
-			entryRoutes,
-			defineRoutes.length ? `"${defineRoutes.join(',')}"` : undefined,
-		]
+		const ESBUILD_DEFINE_ROUTES = defineRoutes.length
+			? `"${defineRoutes.join(',')}"`
+			: undefined
+
+		console.log(entryRoutes, ESBUILD_DEFINE_ROUTES)
+
+		return [entryRoutes, ESBUILD_DEFINE_ROUTES]
 	})
 }
 

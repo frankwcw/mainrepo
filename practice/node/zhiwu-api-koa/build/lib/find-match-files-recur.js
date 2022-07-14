@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const _deepFind = (refs, path, dirPath) => {
+const _deepFind = (refs, path, dirPath, level = 0) => {
 	const nextPath = path + dirPath
 
 	refs.totalPromiseNum++
@@ -14,20 +14,30 @@ const _deepFind = (refs, path, dirPath) => {
 				if (err) return refs.checkResolve()
 
 				if (list.length > 0) {
-					list.forEach(dir => _deepFind(refs, nextPath, `/${dir}`))
+					list.forEach(dir => _deepFind(refs, nextPath, `/${dir}`, level + 1))
 				}
 
 				refs.checkResolve()
 			})
 		} else if (dirPath.match(refs.fileNameMatch)) {
-			refs.files.push(nextPath)
+			const [matched, fullName, name, ext] = nextPath.match(
+				/\/(([A-z.]+)\.([A-z]+))$/,
+			)
+
+			refs.files.push({
+				level,
+				path: nextPath,
+				fullName,
+				name,
+				ext,
+			})
 		}
 
 		refs.checkResolve()
 	})
 }
 
-const recurFindMatchFiles = (path, dirPath, fileNameMatch = /^\/index\.js$/) =>
+const findMatchFilesRecur = (path, dirPath, fileNameMatch = /^\/index\.js$/) =>
 	new Promise(resolve => {
 		const refs = {
 			fileNameMatch,
@@ -44,4 +54,4 @@ const recurFindMatchFiles = (path, dirPath, fileNameMatch = /^\/index\.js$/) =>
 		_deepFind(refs, path, dirPath)
 	})
 
-module.exports = { recurFindMatchFiles }
+module.exports = { findMatchFilesRecur }

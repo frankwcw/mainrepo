@@ -1,44 +1,38 @@
 const fs = require('fs')
-const { recurFindMatchFiles } = require('./recur-find-match-files')
+const { findMatchFilesRecur } = require('./find-match-files-recur')
 
 const getRoutesDirs = async (
 	routesDirPath = '',
 	fileNameMatch = undefined,
 	mapCallback,
 ) => {
-	const resultPaths = await recurFindMatchFiles(
-		routesDirPath,
-		'',
-		fileNameMatch,
+	const matchFiles = await findMatchFilesRecur(routesDirPath, '', fileNameMatch)
+
+	if (matchFiles.length === 0) console.log('找不到路由目錄')
+
+	// 過濾未 export default router 的檔案
+	const files = await Promise.all(
+		matchFiles.map(el => {
+			const { path } = el
+			return new Promise(resolve => {
+				const fileString = fs.readFileSync(path).toString()
+				if (fileString.match(/export\s+default\s+router/)) resolve(el)
+				else resolve(undefined)
+			})
+		}),
 	)
 
-	if (resultPaths.length === 0) console.log('找不到路由目錄')
+	const resultFiles = []
 
-	const filePaths = await Promise.all(
-		resultPaths.map(
-			filePath =>
-				// 過濾未 export default router 的檔案
-				new Promise(resolve => {
-					const fileString = fs.readFileSync(filePath).toString()
-					if (fileString.match(/export\s+default\s+router/)) resolve(filePath)
-					else resolve(undefined)
-				}),
-		),
-	)
-
-	const resultFilePaths = []
-
-	filePaths.forEach((filePath, index, els) => {
-		if (filePath != null) {
-			resultFilePaths.push(
-				mapCallback != null ? mapCallback(filePath, index, els) : filePath,
-			)
+	files.forEach((el, index, els) => {
+		if (el != null) {
+			resultFiles.push(mapCallback != null ? mapCallback(el, index, els) : el)
 		}
 	})
 
-	if (resultFilePaths.length === 0) console.log('沒有可用路由檔')
+	if (resultFiles.length === 0) console.log('沒有可用路由檔')
 
-	return resultFilePaths
+	return resultFiles
 }
 
 module.exports = { getRoutesDirs }
