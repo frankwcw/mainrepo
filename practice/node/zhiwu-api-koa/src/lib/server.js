@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import { env } from './env'
-import { setupRouter } from '../middleware/setup-router'
-import { jsonError } from '../middleware/json-error'
+import { setupRouter } from './setup-router'
+import { jsonError } from '../middlewares/json-error'
 
 export { setupServer }
 
