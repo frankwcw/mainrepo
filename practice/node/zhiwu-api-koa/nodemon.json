@@ -2,6 +2,6 @@
   "watch": ["src"],
   "ignore": ["src/**/*.test.js", "node_modules"],
   "ext": "ts,mjs,js,json,graphql",
-  "exec": "node build --sourcemap && node dist/main.js",
+  "exec": "node build --mode=development && cross-env NODE_OPTIONS=--enable-source-maps node dist/main.js",
   "legacyWatch": true
   }

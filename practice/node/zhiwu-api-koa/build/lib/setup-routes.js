@@ -11,10 +11,10 @@ const setupRoutes = async (entryPath = './src/routes') => {
 		for (let i = 0; i < files.length; i++) {
 			const { path: filePath, ext: fileExt } = files[i]
 			const noEntryPathFilePath = filePath.replace(`${routesDirPath}/`, '')
-			const entryRouteName = noEntryPathFilePath
+			const entryRouteName = `route.${noEntryPathFilePath
 				.split('/')
 				.join('.')
-				.replace(new RegExp(`\.${fileExt}$`), '')
+				.replace(new RegExp(`\.${fileExt}$`), '')}`
 			entryRoutes[entryRouteName] = `${entryPath}/${noEntryPathFilePath}`
 			defineRoutes.push(`${entryRouteName}.${fileExt}`)
 		}

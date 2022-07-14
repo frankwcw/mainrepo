@@ -1,5 +1,3 @@
-import { BaseContext } from 'koa'
-
 export { userController }
 
 class UserController {
@@ -10,6 +8,7 @@ class UserController {
 
 	/** @param {BaseContext} ctx */
 	findOne(ctx) {
+		// ctx.throw(412, '找不到用戶')
 		ctx.body = { name: 'frank' }
 	}
 

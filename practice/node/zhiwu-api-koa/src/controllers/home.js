@@ -1,5 +1,3 @@
-import { BaseContext } from 'koa'
-
 export { homeController }
 
 class HomeController {
