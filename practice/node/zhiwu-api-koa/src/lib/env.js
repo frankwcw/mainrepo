@@ -4,10 +4,11 @@ export { setupEnv, env }
 
 /**
  * PORT? 預設 7777
+ * MONGOGB_URI
  * @type {{
  *   [
  * 	   key in
- * 	   'PORT'
+ * 	   'PORT' | 'MONGOGB_URI'
  *   ]: any
  * }}
  */

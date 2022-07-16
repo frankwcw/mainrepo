@@ -1,7 +1,9 @@
 import { setupEnv } from './lib/env'
 import { setupServer } from './lib/server'
+import { setupMongodb } from './lib/setup-mongodb'
 
-!(function setup() {
+!(async function setup() {
 	if (!setupEnv()) return
+	if (!(await setupMongodb())) return
 	setupServer()
 })()
