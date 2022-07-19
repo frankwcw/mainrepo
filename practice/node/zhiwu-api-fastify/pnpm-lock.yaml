@@ -2,14 +2,14 @@ lockfileVersion: 5.3
 
 specifiers:
   '@fastify/autoload': ^5.1.0
-  '@types/koa': 2.13.5
-  '@types/node': 18.0.3
-  cross-env: 7.0.3
-  dotenv: 16.0.1
-  esbuild: 0.14.49
+  '@types/koa': ^2.13.5
+  '@types/node': ^18.0.3
+  cross-env: ^7.0.3
+  dotenv: ^16.0.1
+  esbuild: ^0.14.49
   fastify: ^4.2.1
-  minimist: 1.2.6
-  mongoose: 6.4.4
+  minimist: ^1.2.6
+  mongoose: ^6.4.4
 
 dependencies:
   '@fastify/autoload': 5.1.0
