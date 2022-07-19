@@ -14,10 +14,10 @@ export { setupEnv, env }
  */
 let env
 
-const setupEnv = (parse = true) => {
+const setupEnv = ({ parse = true, log } = {}) => {
 	const { error, parsed } = dotenv.config()
 
-	if (error) console.log('找不到 .env 檔')
+	if (error) throw new Error('找不到 .env 檔')
 	else {
 		if (parse) {
 			for (let k in parsed) {
@@ -35,8 +35,10 @@ const setupEnv = (parse = true) => {
 				}
 			}
 		}
-		console.log(parsed)
-		console.log('環境變量初始化完成')
+		if (log) {
+			log('環境變量初始化完成')
+			log(parsed)
+		}
 	}
 
 	env = parsed
