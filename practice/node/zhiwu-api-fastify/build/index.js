@@ -1,6 +1,6 @@
 const { build } = require('esbuild')
 const { getCommandArgs } = require('./lib/get-command-args')
-const { setupRoutes } = require('./lib/setup-routes')
+const { setupPlugins } = require('./lib/setup-plugins')
 
 const { mode } = getCommandArgs({
 	mode: 'production',
@@ -9,7 +9,7 @@ const { mode } = getCommandArgs({
 const isProduction = mode === 'production'
 
 !(async () => {
-	const entryRoutes = await setupRoutes()
+	const entryPlugins = await setupPlugins()
 
 	console.log(`
 	---------build 完成分隔線---------
@@ -18,7 +18,7 @@ const isProduction = mode === 'production'
 	build({
 		entryPoints: {
 			main: './src/main.js',
-			...entryRoutes,
+			...entryPlugins,
 		},
 		outdir: 'dist',
 		minify: true,

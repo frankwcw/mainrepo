@@ -1,14 +1,14 @@
 const fs = require('fs')
 const { findMatchFilesRecur } = require('./find-match-files-recur')
 
-const getRoutesDirs = async (
-	routesDirPath = '',
+const getExportDefaultFiles = async (
+	rootDirPath = '',
 	fileNameMatch = undefined,
 	mapCallback,
 ) => {
-	const matchFiles = await findMatchFilesRecur(routesDirPath, '', fileNameMatch)
+	const matchFiles = await findMatchFilesRecur(rootDirPath, '', fileNameMatch)
 
-	if (matchFiles.length === 0) console.log('找不到路由目錄')
+	if (matchFiles.length === 0) console.log('找不到目錄')
 
 	// 過濾未 export default router 的檔案
 	const files = await Promise.all(
@@ -16,7 +16,7 @@ const getRoutesDirs = async (
 			const { path } = el
 			return new Promise(resolve => {
 				const fileString = fs.readFileSync(path).toString()
-				if (fileString.match(/export\s+default\s+\S+/)) resolve(el)
+				if (fileString.match(/^export\s+default\s+\S+/m)) resolve(el)
 				else resolve(undefined)
 			})
 		}),
@@ -30,9 +30,9 @@ const getRoutesDirs = async (
 		}
 	})
 
-	if (resultFiles.length === 0) console.log('沒有可用路由檔')
+	if (resultFiles.length === 0) console.log('沒有可用的 export default 檔')
 
 	return resultFiles
 }
 
-module.exports = { getRoutesDirs }
+module.exports = { getExportDefaultFiles }
