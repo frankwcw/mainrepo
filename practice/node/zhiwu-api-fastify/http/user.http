@@ -1,7 +1,17 @@
-### 會員列表
+### 查列表
 GET {{users-domain}}
-Accept: text/plain
+Content-Type: application/json
 
-### 會員資料
+### 查會員
 GET {{users-domain}}/1
+Content-Type: application/json
+
+### 新增會員
+POST {{users-domain}}/1
 Accept: text/plain
+Content-Type: application/json
+
+{
+  "name": "frank",
+  "username": "aa@aa.aa"
+}
