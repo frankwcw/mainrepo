@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>server-pk</title>
+</head>
+<body>
+<script>
+  !(async () => {
+    let server = 'fastify', domain = 'http://localhost:3001/', before = Date.now(), after
+
+    await fetch(domain)
+    after = Date.now()
+    console.log(`
+server: ${server},
+domain: ${domain},
+before: ${before},
+after: ${after},
+spend: ${after - before}
+  `)
+
+
+    let server2 = 'koa', domain2 = 'http://localhost:3002/', before2 = Date.now(), after2
+    await fetch(domain2)
+    after2 = Date.now()
+    console.log(`
+server: ${server2},
+domain: ${domain2},
+before: ${before2},
+after: ${after2},
+spend: ${after2 - before2}
+  `)
+
+
+    let server3 = 'express', domain3 = 'http://localhost:3003/', before3 = Date.now(), after3
+    await fetch(domain3)
+    after3 = Date.now()
+    console.log(`
+server: ${server3},
+domain: ${domain3},
+before: ${before3},
+after: ${after3},
+spend: ${after3 - before3}
+  `)
+  })()
+</script>
+</body>
+</html>
