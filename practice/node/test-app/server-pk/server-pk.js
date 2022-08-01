@@ -1,7 +1,7 @@
 const { faker } = require('@faker-js/faker')
 
 const createResponse = () => {
-  return Array.from({ length: 10000 }).map(() => ({
+  return Array.from({ length: 100 }).map(() => ({
     userId: faker.datatype.uuid(),
     username: faker.internet.userName(),
     email: faker.internet.email(),
@@ -9,13 +9,15 @@ const createResponse = () => {
     password: faker.internet.password(),
     birthdate: faker.date.birthdate(),
     registeredAt: faker.date.past(),
-    users: Array.from({ length: 10 }).map(() => ({
-      userId: faker.datatype.uuid(),
-      username: faker.internet.userName(),
-      email: faker.internet.email(),
-    })),
+    // users: Array.from({ length: 10 }).map(() => ({
+    //   userId: faker.datatype.uuid(),
+    //   username: faker.internet.userName(),
+    //   email: faker.internet.email(),
+    // })),
   }))
 }
+
+const response = createResponse()
 
 const Fastify = require('fastify')
 const fastify = Fastify()
@@ -39,25 +41,28 @@ const opts = {
             password: { type: 'string' },
             birthdate: { type: 'string' },
             registeredAt: { type: 'string' },
-            users: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {
-                  userId: { type: 'string' },
-                  username: { type: 'string' },
-                  email: { type: 'string' },
-                },
-              }
-            }
+            // users: {
+            //   type: 'array',
+            //   items: {
+            //     type: 'object',
+            //     properties: {
+            //       userId: { type: 'string' },
+            //       username: { type: 'string' },
+            //       email: { type: 'string' },
+            //     },
+            //   }
+            // }
           }
         }
       }
     }
   }
 }
+// fastify.get('/', async (request, reply) => {
+//   return createResponse()
+// })
 fastify.get('/', opts, async (request, reply) => {
-  return createResponse()
+  return response
 })
 
 fastify.listen(3001)
@@ -79,7 +84,7 @@ const koa = new Koa();
 const router = new Router()
 
 router.get('/', (ctx, next) => {
-  ctx.body = createResponse()
+  ctx.body = response
 });
 
 koa
@@ -105,7 +110,7 @@ const express = Express()
 express.use(require('cors')())
 
 express.get('/', function (req, res) {
-  res.send(createResponse())
+  res.send(response)
 })
 
 express.listen(3003)
