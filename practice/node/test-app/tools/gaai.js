@@ -12,6 +12,8 @@ const { normal: normalPath, round: roundPath } = getCommandArgs({
 const normalFileName = normalPath.match(/[^/]+\.(jpe?g|png)$/i)[0]
 const roundFileName = roundPath.match(/[^/]+\.(jpe?g|png)$/i)[0]
 
+const rootPath = process.cwd()
+
 const dirs = [
   { name: 'xxxhdpi', size: 192 },
   { name: 'xxhdpi', size: 144 },
@@ -51,7 +53,7 @@ if (normalBuffer || roundBuffer) {
   let oupputName, lastOupputNum = Number.MIN_SAFE_INTEGER
 
   for (let i = 0; i < dirList.length; i++) {
-    const stat = fs.lstatSync(path.resolve(__dirname, dirList[i]))
+    const stat = fs.lstatSync(path.resolve(rootPath, dirList[i]))
     if (!stat.isDirectory()) continue
 
     const matched = dirList[i].match(/^output(\((\d+)\))?$/)
@@ -68,17 +70,17 @@ if (normalBuffer || roundBuffer) {
   else if (lastOupputNum > 0) oupputName = `output(${lastOupputNum + 1})`
   else oupputName = 'output'
 
-  fs.mkdirSync(path.resolve(__dirname, oupputName))
+  fs.mkdirSync(path.resolve(rootPath, oupputName))
 
   !(async () => {
     for (let i = 0; i < dirs.length; i++) {
       const { name, size } = dirs[i]
 
-      console.log(path.resolve(__dirname, `${oupputName}/${name}`))
-      fs.mkdirSync(path.resolve(__dirname, `${oupputName}/${name}`))
+      console.log(path.resolve(rootPath, `${oupputName}/${name}`))
+      fs.mkdirSync(path.resolve(rootPath, `${oupputName}/${name}`))
 
-      const normalOutputPath = path.resolve(__dirname, `${oupputName}/${name}/${normalFileName}`)
-      const roundOutputPath = path.resolve(__dirname, `${oupputName}/${name}/${roundFileName}`)
+      const normalOutputPath = path.resolve(rootPath, `${oupputName}/${name}/${normalFileName}`)
+      const roundOutputPath = path.resolve(rootPath, `${oupputName}/${name}/${roundFileName}`)
 
       if (normalBuffer != null) await generateIcon(normalOutputPath, size, normalBuffer)
       if (roundBuffer != null) await generateIcon(roundOutputPath, size, roundBuffer)

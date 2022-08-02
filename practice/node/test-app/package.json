@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build-generate-android-app-icon": "esbuild tools/generate-android-app-icon.js --bundle --minify --platform=node --target=node14 --outfile=dist/generate-android-app-icon.bundle.js",
-    "gaai": "node tools/generate-android-app-icon.js --normal=\"./ic_launcher.png\" --round=\"./ic_launcher_round.png\""
+    "esbuild-gaai": "node ./deploy-recipe/esbuild/build-gaai.js",
+    "gaai": "node ./dist/gaai/script/bundle.js --normal=\"./ic_launcher.png\" --round=\"./ic_launcher_round.png\""
   },
   "keywords": [],
   "author": "",
